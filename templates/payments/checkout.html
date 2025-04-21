@@ -16,18 +16,7 @@
     {% endif %}
     <p class="text-gray-600 mb-2"><strong>Price:</strong> {{ project.price }}</p>
     <p class="text-gray-600 mb-4"><strong>Description:</strong> {{ project.description|default:"No description available." }}</p>
-    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-        <input type="hidden" name="business" value="{{ paypal_receiver_email }}">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="item_name" value="{{ project.name }}">
-        <input type="hidden" name="amount" value="{{ project.price.amount }}">
-        <input type="hidden" name="currency_code" value="{{ project.price.currency }}">
-        <input type="hidden" name="return" value="{{ request.scheme }}://{{ request.get_host }}{% url 'payments:payment_success' %}">
-        <input type="hidden" name="cancel_return" value="{{ request.scheme }}://{{ request.get_host }}{% url 'payments:payment_failed' %}">
-        <input type="hidden" name="notify_url" value="{{ request.scheme }}://{{ request.get_host }}{% url 'paypal-ipn' %}">
-        <input type="hidden" name="custom" value="{{ project.id }}">
-        <input type="image" src="{{ paypal_button_image }}" name="submit" alt="Buy it Now">
-    </form>
+    {{ paypal.render }}
     {% else %}
     <p class="text-red-600">Project not found.</p>
     {% endif %}

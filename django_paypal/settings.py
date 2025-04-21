@@ -55,6 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_paypal.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -66,10 +67,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'payments.context_processors.project_context',
             ],
         },
     },
 ]
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -80,8 +83,9 @@ WSGI_APPLICATION = 'django_paypal.wsgi.application'
 
 
 
+
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
-PAYPAL_TEST = True  # Set to False for production
+PAYPAL_TEST = True
 PAYPAL_BUY_BUTTON_IMAGE = 'https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif'
 
 
