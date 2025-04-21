@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Transaction History{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Transaction History</h1>
+<div class="bg-white p-6 rounded-lg shadow-md">
+    {% if transactions %}
+    <table class="w-full table-auto">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="px-4 py-2">Transaction ID</th>
+                <th class="px-4 py-2">Project</th>
+                <th class="px-4 py-2">Amount</th>
+                <th class="px-4 py-2">Invoice ID</th>
+                <th class="px-4 py-2">Status</th>
+                <th class="px-4 py-2">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td class="border px-4 py-2">{{ transaction.transaction_id }}</td>
+                <td class="border px-4 py-2">{{ transaction.project.name|default:"N/A" }}</td>
+                <td class="border px-4 py-2">{{ transaction.amount }}</td>
+                <td class="border px-4 py-2">{{ transaction.invoice_id }}</td>
+                <td class="border px-4 py-2">{{ transaction.status }}</td>
+                <td class="border px-4 py-2">{{ transaction.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-gray-600">No transactions found.</p>
+    {% endif %}
+    <a href="{% url 'payments:project_list' %}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Back to Projects</a>
+</div>
+{% endblock %}

@@ -10,4 +10,6 @@ urlpatterns = [
     path('payment/success/<int:pk>/', views.PaymentSuccessView.as_view(), name='payment_success'),
     path('payment/failed/<int:pk>/', views.PaymentFailedView.as_view(), name='payment_failed'),
     path('paypal/', paypal_views.ipn, name='paypal-ipn'),
+    path('webhook/', views.PayPalWebhookView, name='paypal-webhook'),
+    path('transactions/', views.TransactionListView.as_view(), name='transaction_list'),
 ]

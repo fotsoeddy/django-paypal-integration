@@ -83,10 +83,13 @@ WSGI_APPLICATION = 'django_paypal.wsgi.application'
 
 
 
-
 PAYPAL_RECEIVER_EMAIL = config('PAYPAL_RECEIVER_EMAIL')
 PAYPAL_TEST = True
 PAYPAL_BUY_BUTTON_IMAGE = 'https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif'
+PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
+PAYPAL_CLIENT_SECRET = config('PAYPAL_CLIENT_SECRET')
+PAYPAL_WEBHOOK_ID = config('PAYPAL_WEBHOOK_ID')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*.ngrok-free.app']
 
 
 # Database
