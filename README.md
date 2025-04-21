@@ -25,7 +25,7 @@ This is a Django web application that integrates PayPal for processing payments 
 ### Clone the Repository:
 
 ```bash
-git clone https://github.com/fotsoeddy/django-paypal-integration.git 
+git clone (https://github.com/fotsoeddy/django-paypal-integration.git)
 cd django-paypal-integration
 ```
 
