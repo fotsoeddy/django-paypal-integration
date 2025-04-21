@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Checkout</h1>
+<div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
+    {% if project %}
+    <h2 class="text-xl font-semibold">{{ project.name }}</h2>
+    {% if project.image %}
+    <img src="{{ project.image.url }}" alt="{{ project.name }}" class="w-full h-48 object-cover rounded-md mb-4">
+    {% else %}
+    <div class="w-full h-48 bg-gray-200 rounded-md mb-4 flex items-center justify-center">
+        <span class="text-gray-500">No Image</span>
+    </div>
+    {% endif %}
+    <p class="text-gray-600 mb-2"><strong>Price:</strong> {{ project.price }}</p>
+    <p class="text-gray-600 mb-4"><strong>Description:</strong> {{ project.description|default:"No description available." }}</p>
+    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="business" value="{{ paypal_receiver_email }}">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="item_name" value="{{ project.name }}">
+        <input type="hidden" name="amount" value="{{ project.price.amount }}">
+        <input type="hidden" name="currency_code" value="{{ project.price.currency }}">
+        <input type="hidden" name="return" value="{{ request.scheme }}://{{ request.get_host }}{% url 'payments:payment_success' %}">
+        <input type="hidden" name="cancel_return" value="{{ request.scheme }}://{{ request.get_host }}{% url 'payments:payment_failed' %}">
+        <input type="hidden" name="notify_url" value="{{ request.scheme }}://{{ request.get_host }}{% url 'paypal-ipn' %}">
+        <input type="hidden" name="custom" value="{{ project.id }}">
+        <input type="image" src="{{ paypal_button_image }}" name="submit" alt="Buy it Now">
+    </form>
+    {% else %}
+    <p class="text-red-600">Project not found.</p>
+    {% endif %}
+</div>
+{% endblock %}

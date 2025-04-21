@@ -1,0 +1,5 @@
+django
+django-money
+django-paypal
+pillow
+python-decouple
